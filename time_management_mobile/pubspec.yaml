@@ -10,13 +10,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
+  http: ^0.12.1
+  injectable: ^0.4.0+1
+  get_it: ^4.0.2
   cupertino_icons: ^0.1.3
   provider: ^4.2.0
+  rxdart: ^0.24.1
+  shared_preferences: ^0.5.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  injectable_generator: ^0.4.1
+  build_runner: ^1.10.0
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/localization/
