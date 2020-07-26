@@ -112,11 +112,6 @@ class HttpService implements Client {
       }
     }
 
-    if (!HttpResults.allowedHttpStatuses.contains(response.statusCode)) {
-      _badResponseSubject.add(response);
-      throw Exception("Http bad response");
-    }
-
     return response;
   }
 

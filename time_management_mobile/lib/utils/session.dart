@@ -31,8 +31,9 @@ class Session {
     if (tokenDtoJson != null) {
       Session._tokenDto = TokenDto.fromJson(tokenDtoJson);
       _isSignedInSubject.add(true);
+    } else {
+      _isSignedInSubject.add(false);
     }
-    _isSignedInSubject.add(false);
   }
 
   static Future logIn(String userName, String password) async {
@@ -41,14 +42,12 @@ class Session {
       username: userName,
       password: password,
     );
-    var tokenDto = await _authService.authenticate(authenticationDto);
-    _tokenDto = tokenDto;
-
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setString(AuthPrefsConsts.tokenKey, tokenDto.toJson());
-    prefs.setString(AuthPrefsConsts.passKey, authenticationDto.toJson());
-
-    _isSignedInSubject.add(true);
+    _authService.authenticate(authenticationDto).then(
+          (value) async => {
+            await _saveData(value, authenticationDto),
+            _isSignedInSubject.add(true),
+          },
+        );
   }
 
   static Future logOut() async {
@@ -60,5 +59,13 @@ class Session {
 
   static void closeSubjects() {
     _isSignedInSubject.close();
+  }
+
+  static Future _saveData(
+      TokenDto tokenDto, AuthenticationDto authenticationDto) async {
+    _tokenDto = tokenDto;
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString(AuthPrefsConsts.tokenKey, tokenDto.toJson());
+    prefs.setString(AuthPrefsConsts.passKey, authenticationDto.toJson());
   }
 }
