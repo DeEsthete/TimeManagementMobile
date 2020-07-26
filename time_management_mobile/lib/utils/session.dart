@@ -26,8 +26,10 @@ class Session {
 
   static Future init() async {
     var prefs = await SharedPreferences.getInstance();
-    Session._tokenDto = prefs.get(AuthPrefsConsts.tokenKey);
-    if (Session._tokenDto != null) {
+    var tokenDtoJson = prefs.get(AuthPrefsConsts.tokenKey);
+
+    if (tokenDtoJson != null) {
+      Session._tokenDto = TokenDto.fromJson(tokenDtoJson);
       _isSignedInSubject.add(true);
     }
     _isSignedInSubject.add(false);
@@ -43,8 +45,8 @@ class Session {
     _tokenDto = tokenDto;
 
     var prefs = await SharedPreferences.getInstance();
-    prefs.setString(AuthPrefsConsts.tokenKey, json.encode(tokenDto));
-    prefs.setString(AuthPrefsConsts.passKey, json.encode(authenticationDto));
+    prefs.setString(AuthPrefsConsts.tokenKey, tokenDto.toJson());
+    prefs.setString(AuthPrefsConsts.passKey, authenticationDto.toJson());
 
     _isSignedInSubject.add(true);
   }
