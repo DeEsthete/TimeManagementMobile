@@ -18,24 +18,28 @@ class AuthScreen extends StatelessWidget {
     var sessionModel = Provider.of<SessionModel>(context);
     return Scaffold(
       body: BadResponseLayout(
-        child: Container(
+        body: Container(
           child: Form(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                TextFormField(
-                  controller: _userNameController,
-                  decoration: InputDecoration(
-                    hintText: Translator.of(context).translate("Username"),
+                Flexible(
+                  child: TextFormField(
+                    controller: _userNameController,
+                    decoration: InputDecoration(
+                      hintText: Translator.of(context).translate("Username"),
+                    ),
                   ),
                 ),
-                TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    hintText: Translator.of(context).translate("Password"),
+                Flexible(
+                  child: TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      hintText: Translator.of(context).translate("Password"),
+                    ),
+                    obscureText: true,
                   ),
-                  obscureText: true,
                 ),
                 RaisedButton(
                   onPressed: () => {

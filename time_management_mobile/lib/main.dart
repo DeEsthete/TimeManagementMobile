@@ -5,7 +5,6 @@ import 'package:time_management_mobile/utils/session.dart';
 
 import 'common/di_config.dart';
 import 'models/app_language_model.dart';
-import 'models/bad_response_model.dart';
 import 'widgets/app.dart';
 
 void main() async {
@@ -19,9 +18,6 @@ void main() async {
       providers: [
         ChangeNotifierProvider<SessionModel>(
           create: (context) => SessionModel(),
-        ),
-        ChangeNotifierProvider<BadResponseModel>(
-          create: (context) => BadResponseModel(),
         ),
         ChangeNotifierProvider.value(value: appLanguage),
       ],
