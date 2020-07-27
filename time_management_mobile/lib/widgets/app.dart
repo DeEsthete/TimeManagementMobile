@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:time_management_mobile/constant/color_consts.dart';
 import 'package:time_management_mobile/models/app_language_model.dart';
 import 'package:time_management_mobile/models/session_model.dart';
 import 'package:time_management_mobile/utils/translator.dart';
@@ -22,7 +23,10 @@ class MyApp extends StatelessWidget {
       ],
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: AppColors.primaryColor,
+        accentColor: AppColors.accentFontColor,
+        buttonColor: AppColors.primaryColor,
+        buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Consumer<SessionModel>(

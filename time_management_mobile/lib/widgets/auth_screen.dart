@@ -64,10 +64,8 @@ class AuthScreen extends StatelessWidget {
                       child: Center(
                         child: Text(
                           Translator.of(context).translate("Sign in"),
-                          style: TextStyle(color: AppColors.alterFontColor),
                         ),
                       ),
-                      color: AppColors.primaryColor,
                     ),
                   ),
                   Container(
