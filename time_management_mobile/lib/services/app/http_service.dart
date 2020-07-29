@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_management_mobile/common/di_config.dart';
+import 'package:time_management_mobile/constant/filter_consts.dart';
 import 'package:time_management_mobile/constant/pref_consts.dart';
 import 'package:time_management_mobile/dtos/authentication_dto.dart';
 import 'package:time_management_mobile/services/api/auth_service.dart';
@@ -109,6 +110,12 @@ class HttpService implements Client {
       } on Exception {
         Session.isSignedInSubject.add(false);
       }
+    }
+
+    // Сообщаем что запрос выполнился с ошибкой
+    if (!HttpResults.allowedHttpStatuses.contains(response.statusCode)) {
+      HttpService.badResponseSubject.add(response);
+      Future.error(response);
     }
 
     return response;
