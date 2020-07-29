@@ -11,6 +11,7 @@ class PurposeDto {
   final int deedId;
   final int requiredHours;
   final int haveHours;
+
   PurposeDto({
     this.name,
     this.id,
@@ -54,11 +55,11 @@ class PurposeDto {
     return {
       'name': name,
       'id': id,
-      'dateCreate': dateCreate,
-      'dateUpdate': dateUpdate,
+      'dateCreate': dateCreate?.millisecondsSinceEpoch,
+      'dateUpdate': dateUpdate?.millisecondsSinceEpoch,
       'purposeStatusId': purposeStatusId,
-      'dateStart': dateStart,
-      'dateEnd': dateEnd,
+      'dateStart': dateStart?.millisecondsSinceEpoch,
+      'dateEnd': dateEnd?.millisecondsSinceEpoch,
       'deedId': deedId,
       'requiredHours': requiredHours,
       'haveHours': haveHours,
@@ -70,15 +71,15 @@ class PurposeDto {
 
     return PurposeDto(
       name: map['name'],
-      id: map['id']?.toInt(),
-      dateCreate: map['dateCreate'],
-      dateUpdate: map['dateUpdate'],
-      purposeStatusId: map['purposeStatusId']?.toInt(),
-      dateStart: map['dateStart'],
-      dateEnd: map['dateEnd'],
-      deedId: map['deedId']?.toInt(),
-      requiredHours: map['requiredHours']?.toInt(),
-      haveHours: map['haveHours']?.toInt(),
+      id: map['id'],
+      dateCreate: DateTime.tryParse(map['dateCreate']),
+      dateUpdate: DateTime.tryParse(map['dateUpdate']),
+      purposeStatusId: map['purposeStatusId'],
+      dateStart: DateTime.tryParse(map['dateStart']),
+      dateEnd: DateTime.tryParse(map['dateEnd']),
+      deedId: map['deedId'],
+      requiredHours: map['requiredHours'],
+      haveHours: map['haveHours'],
     );
   }
 

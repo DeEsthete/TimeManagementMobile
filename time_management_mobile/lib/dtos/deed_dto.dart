@@ -51,8 +51,8 @@ class DeedDto {
 
     return DeedDto(
       id: map['id'],
-      dateCreate: DateTime.fromMillisecondsSinceEpoch(map['dateCreate']),
-      dateUpdate: DateTime.fromMillisecondsSinceEpoch(map['dateUpdate']),
+      dateCreate: DateTime.tryParse(map['dateCreate']),
+      dateUpdate: DateTime.tryParse(map['dateUpdate']),
       userId: map['userId'],
       name: map['name'],
       isArchived: map['isArchived'],

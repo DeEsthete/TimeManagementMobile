@@ -34,8 +34,8 @@ class ReferenceEntityDto {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'dateCreate': dateCreate,
-      'dateUpdate': dateUpdate,
+      'dateCreate': dateCreate?.millisecondsSinceEpoch,
+      'dateUpdate': dateUpdate?.millisecondsSinceEpoch,
       'name': name,
       'code': code,
     };
@@ -45,9 +45,9 @@ class ReferenceEntityDto {
     if (map == null) return null;
 
     return ReferenceEntityDto(
-      id: map['id']?.toInt(),
-      dateCreate: map['dateCreate'],
-      dateUpdate: map['dateUpdate'],
+      id: map['id'],
+      dateCreate: DateTime.tryParse(map['dateCreate']),
+      dateUpdate: DateTime.tryParse(map['dateUpdate']),
       name: map['name'],
       code: map['code'],
     );

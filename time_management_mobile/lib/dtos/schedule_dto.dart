@@ -30,8 +30,8 @@ class ScheduleDto {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'dateCreate': dateCreate,
-      'dateUpdate': dateUpdate,
+      'dateCreate': dateCreate?.millisecondsSinceEpoch,
+      'dateUpdate': dateUpdate?.millisecondsSinceEpoch,
       'scheduleDate': scheduleDate,
     };
   }
@@ -40,9 +40,9 @@ class ScheduleDto {
     if (map == null) return null;
 
     return ScheduleDto(
-      id: map['id']?.toInt(),
-      dateCreate: map['dateCreate'],
-      dateUpdate: map['dateUpdate'],
+      id: map['id'],
+      dateCreate: DateTime.tryParse(map['dateCreate']),
+      dateUpdate: DateTime.tryParse(map['dateUpdate']),
       scheduleDate: map['scheduleDate'],
     );
   }

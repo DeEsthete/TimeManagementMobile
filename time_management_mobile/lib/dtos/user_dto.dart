@@ -38,8 +38,8 @@ class UserDto {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'dateCreate': dateCreate,
-      'dateUpdate': dateUpdate,
+      'dateCreate': dateCreate?.millisecondsSinceEpoch,
+      'dateUpdate': dateUpdate?.millisecondsSinceEpoch,
       'nickname': nickname,
       'userName': userName,
       'role': role,
@@ -50,9 +50,9 @@ class UserDto {
     if (map == null) return null;
 
     return UserDto(
-      id: map['id']?.toInt(),
-      dateCreate: map['dateCreate'],
-      dateUpdate: map['dateUpdate'],
+      id: map['id'],
+      dateCreate: DateTime.tryParse(map['dateCreate']),
+      dateUpdate: DateTime.tryParse(map['dateUpdate']),
       nickname: map['nickname'],
       userName: map['userName'],
       role: map['role'],

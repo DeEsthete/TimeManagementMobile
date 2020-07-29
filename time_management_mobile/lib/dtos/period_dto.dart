@@ -56,11 +56,11 @@ class PeriodDto {
 
     return PeriodDto(
       id: map['id'],
-      dateCreate: DateTime.fromMillisecondsSinceEpoch(map['dateCreate']),
-      dateUpdate: DateTime.fromMillisecondsSinceEpoch(map['dateUpdate']),
+      dateCreate: DateTime.tryParse(map['dateCreate']),
+      dateUpdate: DateTime.tryParse(map['dateUpdate']),
       deedId: map['deedId'],
-      startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate']),
-      endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate']),
+      startDate: DateTime.tryParse(map['startDate']),
+      endDate: DateTime.tryParse(map['endDate']),
       description: map['description'],
     );
   }
