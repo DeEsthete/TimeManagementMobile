@@ -5,8 +5,10 @@
 // **************************************************************************
 
 import 'package:time_management_mobile/services/api/auth_service.dart';
+import 'package:time_management_mobile/services/api/deed_service.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<AuthService>(() => AuthService());
+  g.registerFactory<DeedService>(() => DeedService());
 }
