@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,6 +21,13 @@ class BaseDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
+            padding: EdgeInsets.zero,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                repeat: ImageRepeat.repeat,
+                image: AssetImage("assets/images/drawer_head.png"),
+              ),
+            ),
             child: Center(
               child: Text(
                 Session.tokenDto.userName,
@@ -27,9 +36,6 @@ class BaseDrawer extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-            ),
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
             ),
           ),
           _buildListItem(
@@ -55,10 +61,17 @@ class BaseDrawer extends StatelessWidget {
           ),
           _buildListItem(
             context: context,
-            icon: FontAwesomeIcons.book,
+            icon: FontAwesomeIcons.penAlt,
             title: "Periods",
             screen: Container(),
             selected: SelectedScreen.periods,
+          ),
+          _buildListItem(
+            context: context,
+            icon: FontAwesomeIcons.userCheck,
+            title: "Deeds",
+            screen: Container(),
+            selected: SelectedScreen.deeds,
           ),
           _buildListItem(
             context: context,
@@ -78,41 +91,57 @@ class BaseDrawer extends StatelessWidget {
       String title,
       Widget screen,
       SelectedScreen selected}) {
-    return ListTile(
-      title: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: FaIcon(icon),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: AppColors.mainFontColor.withOpacity(0.15),
           ),
-          Expanded(
-            flex: 9,
-            child: Container(
-              margin: EdgeInsets.only(left: 12),
-              child: Text(
-                Translator.of(context).translate(title),
-                style: TextStyle(
-                  color: this.selected == selected
-                      ? AppColors.primaryColor
-                      : AppColors.mainFontColor,
+        ),
+      ),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: FaIcon(
+                  icon,
+                  color: AppColors.primaryColor.withOpacity(0.9),
                 ),
               ),
-            ),
+              Expanded(
+                flex: 9,
+                child: Container(
+                  margin: EdgeInsets.only(left: 20),
+                  child: Text(
+                    Translator.of(context).translate(title),
+                    style: TextStyle(
+                      color: this.selected == selected
+                          ? AppColors.primaryColor
+                          : AppColors.mainFontColor.withOpacity(0.7),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
+        onTap: () {
+          if (this.selected != selected) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => screen,
+              ),
+            );
+          } else {
+            Navigator.pop(context);
+          }
+        },
       ),
-      onTap: () {
-        if (this.selected != selected) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => screen,
-            ),
-          );
-        } else {
-          Navigator.pop(context);
-        }
-      },
     );
   }
 }

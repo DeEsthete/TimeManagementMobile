@@ -3,5 +3,6 @@ enum SelectedScreen {
   statistic,
   schedule,
   periods,
+  deeds,
   purposes,
 }
