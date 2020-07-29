@@ -11,7 +11,15 @@ class BadResponseLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HttpService.badResponseSubject.listen((value) {
-      var badResponse = BadResponseDto.fromJson(value.body);
+      String message = "";
+
+      if (value != null) {
+        var badResponse = BadResponseDto.fromJson(value.body);
+        message = badResponse.message.toString();
+      } else {
+        message = "Unexpected error";
+      }
+
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -23,7 +31,7 @@ class BadResponseLayout extends StatelessWidget {
             ),
             content: Text(
               Translator.of(context).translate(
-                badResponse.message.toString(),
+                message,
               ),
             ),
           );
