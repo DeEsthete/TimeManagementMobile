@@ -21,6 +21,10 @@ dependencies:
   rxdart: ^0.24.1
   shared_preferences: ^0.5.8
   font_awesome_flutter: ^8.8.1
+  tinycolor: ^1.0.2
+  flutter_datetime_picker:
+    git:
+      url: https://github.com/derohimat/flutter_datetime_picker.git
 
 dev_dependencies:
   flutter_test:
