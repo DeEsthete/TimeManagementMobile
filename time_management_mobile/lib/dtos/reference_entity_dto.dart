@@ -34,8 +34,8 @@ class ReferenceEntityDto {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'dateCreate': dateCreate?.millisecondsSinceEpoch,
-      'dateUpdate': dateUpdate?.millisecondsSinceEpoch,
+      'dateCreate': dateCreate?.toIso8601String(),
+      'dateUpdate': dateUpdate?.toIso8601String(),
       'name': name,
       'code': code,
     };

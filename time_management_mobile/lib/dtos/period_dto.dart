@@ -42,11 +42,11 @@ class PeriodDto {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'dateCreate': dateCreate?.millisecondsSinceEpoch,
-      'dateUpdate': dateUpdate?.millisecondsSinceEpoch,
+      'dateCreate': dateCreate?.toIso8601String(),
+      'dateUpdate': dateUpdate?.toIso8601String(),
       'deedId': deedId,
-      'startDate': startDate?.millisecondsSinceEpoch,
-      'endDate': endDate?.millisecondsSinceEpoch,
+      'startDate': startDate?.toIso8601String(),
+      'endDate': endDate?.toIso8601String(),
       'description': description,
     };
   }

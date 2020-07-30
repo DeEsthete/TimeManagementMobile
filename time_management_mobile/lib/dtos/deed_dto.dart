@@ -38,8 +38,8 @@ class DeedDto {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'dateCreate': dateCreate?.millisecondsSinceEpoch,
-      'dateUpdate': dateUpdate?.millisecondsSinceEpoch,
+      'dateCreate': dateCreate?.toIso8601String(),
+      'dateUpdate': dateUpdate?.toIso8601String(),
       'userId': userId,
       'name': name,
       'isArchived': isArchived,

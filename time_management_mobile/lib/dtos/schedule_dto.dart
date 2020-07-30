@@ -4,7 +4,7 @@ class ScheduleDto {
   final int id;
   final DateTime dateCreate;
   final DateTime dateUpdate;
-  final String scheduleDate;
+  final DateTime scheduleDate;
 
   ScheduleDto({
     this.id,
@@ -17,7 +17,7 @@ class ScheduleDto {
     int id,
     DateTime dateCreate,
     DateTime dateUpdate,
-    String scheduleDate,
+    DateTime scheduleDate,
   }) {
     return ScheduleDto(
       id: id ?? this.id,
@@ -30,9 +30,9 @@ class ScheduleDto {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'dateCreate': dateCreate?.millisecondsSinceEpoch,
-      'dateUpdate': dateUpdate?.millisecondsSinceEpoch,
-      'scheduleDate': scheduleDate,
+      'dateCreate': dateCreate?.toIso8601String(),
+      'dateUpdate': dateUpdate?.toIso8601String(),
+      'scheduleDate': scheduleDate?.toIso8601String(),
     };
   }
 
@@ -43,7 +43,7 @@ class ScheduleDto {
       id: map['id'],
       dateCreate: DateTime.tryParse(map['dateCreate']),
       dateUpdate: DateTime.tryParse(map['dateUpdate']),
-      scheduleDate: map['scheduleDate'],
+      scheduleDate: DateTime.tryParse(map['scheduleDate']),
     );
   }
 
