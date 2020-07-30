@@ -5,17 +5,23 @@ class SessionModel extends ChangeNotifier {
   bool isSignedIn = false;
 
   SessionModel() {
-    Session.isSignedInSubject.listen((value) {
+    Session.getInstance().isSignedInSubject.listen((value) {
       isSignedIn = value;
       notifyListeners();
     });
   }
 
   logIn(String userName, String password) {
-    Session.logIn(userName, password);
+    Session.getInstance().logIn(userName, password);
   }
 
   logOut() {
-    Session.logOut();
+    Session.getInstance().logOut();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    Session.getInstance().dispose();
   }
 }

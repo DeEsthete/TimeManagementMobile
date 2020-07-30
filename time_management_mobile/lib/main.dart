@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AppLanguageModel appLanguage = AppLanguageModel();
   await appLanguage.fetchLocale();
-  await Session.init();
+  await Session.getInstance().init();
   configureDependencies();
   runApp(
     MultiProvider(

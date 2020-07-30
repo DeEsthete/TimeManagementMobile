@@ -4,17 +4,19 @@ import 'package:time_management_mobile/common/di_config.dart';
 import 'package:time_management_mobile/constant/pref_consts.dart';
 import 'package:time_management_mobile/dtos/authentication_dto.dart';
 import 'package:time_management_mobile/dtos/token_dto.dart';
-import 'package:time_management_mobile/services/api/auth_service.dart';
+import 'package:time_management_mobile/services/api/user_service.dart';
 
 class Session {
-  static TokenDto _tokenDto;
-  static TokenDto get tokenDto => _tokenDto;
+  static Session _instance;
 
-  static BehaviorSubject<bool> _isSignedInSubject = new BehaviorSubject();
-  static BehaviorSubject<bool> get isSignedInSubject => _isSignedInSubject;
+  TokenDto _tokenDto;
+  TokenDto get tokenDto => _tokenDto;
 
-  static bool _isSignedIn;
-  static bool get isSignedIn => _isSignedIn;
+  BehaviorSubject<bool> _isSignedInSubject = new BehaviorSubject();
+  BehaviorSubject<bool> get isSignedInSubject => _isSignedInSubject;
+
+  bool _isSignedIn;
+  bool get isSignedIn => _isSignedIn;
 
   Session() {
     _isSignedInSubject.listen((value) {
@@ -22,20 +24,27 @@ class Session {
     });
   }
 
-  static Future init() async {
+  static Session getInstance() {
+    if (_instance == null) {
+      _instance = Session();
+    }
+    return _instance;
+  }
+
+  Future init() async {
     var prefs = await SharedPreferences.getInstance();
     var tokenDtoJson = prefs.get(AuthPrefsConsts.tokenKey);
 
     if (tokenDtoJson != null) {
-      Session._tokenDto = TokenDto.fromJson(tokenDtoJson);
+      _tokenDto = TokenDto.fromJson(tokenDtoJson);
       _isSignedInSubject.add(true);
     } else {
       _isSignedInSubject.add(false);
     }
   }
 
-  static Future logIn(String userName, String password) async {
-    AuthService _authService = getIt<AuthService>();
+  Future logIn(String userName, String password) async {
+    UserService _authService = getIt<UserService>();
     var authenticationDto = new AuthenticationDto(
       username: userName,
       password: password,
@@ -48,22 +57,22 @@ class Session {
         );
   }
 
-  static Future logOut() async {
+  Future logOut() async {
     var prefs = await SharedPreferences.getInstance();
     prefs.remove(AuthPrefsConsts.tokenKey);
     prefs.remove(AuthPrefsConsts.passKey);
     _isSignedInSubject.add(false);
   }
 
-  static void closeSubjects() {
-    _isSignedInSubject.close();
-  }
-
-  static Future _saveData(
+  Future _saveData(
       TokenDto tokenDto, AuthenticationDto authenticationDto) async {
     _tokenDto = tokenDto;
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(AuthPrefsConsts.tokenKey, tokenDto.toJson());
     prefs.setString(AuthPrefsConsts.passKey, authenticationDto.toJson());
+  }
+
+  void dispose() {
+    _isSignedInSubject.close();
   }
 }

@@ -7,8 +7,11 @@ import 'package:time_management_mobile/common/selected_screen.dart';
 import 'package:time_management_mobile/constant/color_consts.dart';
 import 'package:time_management_mobile/utils/session.dart';
 import 'package:time_management_mobile/utils/translator.dart';
+import 'package:time_management_mobile/widgets/deeds_screen.dart';
 import 'package:time_management_mobile/widgets/home_screen.dart';
+import 'package:time_management_mobile/widgets/periods_screen.dart';
 
+/// Базовое боковое меню
 class BaseDrawer extends StatelessWidget {
   final SelectedScreen selected;
   BaseDrawer({this.selected});
@@ -30,7 +33,7 @@ class BaseDrawer extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                Session.tokenDto.userName,
+                Session.getInstance().tokenDto.userName,
                 style: TextStyle(
                   color: AppColors.alterFontColor,
                   fontSize: 18,
@@ -63,14 +66,14 @@ class BaseDrawer extends StatelessWidget {
             context: context,
             icon: FontAwesomeIcons.penAlt,
             title: "Periods",
-            screen: Container(),
+            screen: PeriodsScreen(),
             selected: SelectedScreen.periods,
           ),
           _buildListItem(
             context: context,
             icon: FontAwesomeIcons.userCheck,
             title: "Deeds",
-            screen: Container(),
+            screen: DeedsScreen(),
             selected: SelectedScreen.deeds,
           ),
           _buildListItem(
