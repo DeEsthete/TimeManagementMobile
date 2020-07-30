@@ -4,6 +4,7 @@ import 'package:time_management_mobile/dtos/bad_response_dto.dart';
 import 'package:time_management_mobile/services/app/http_service.dart';
 import 'package:time_management_mobile/utils/translator.dart';
 
+/// Отвечает за отображение диалогового окна при получении ошибки с api
 class BadResponseLayout extends StatelessWidget {
   final Widget body;
   BadResponseLayout({@required this.body});

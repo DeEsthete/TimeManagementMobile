@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      title: 'Flutter Demo',
+      title: 'Time Management',
       theme: ThemeData(
         primarySwatch: AppColors.primaryColor,
         accentColor: AppColors.accentFontColor,
