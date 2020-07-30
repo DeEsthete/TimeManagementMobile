@@ -9,7 +9,7 @@ import 'package:time_management_mobile/common/di_config.dart';
 import 'package:time_management_mobile/constant/filter_consts.dart';
 import 'package:time_management_mobile/constant/pref_consts.dart';
 import 'package:time_management_mobile/dtos/authentication_dto.dart';
-import 'package:time_management_mobile/services/api/auth_service.dart';
+import 'package:time_management_mobile/services/api/user_service.dart';
 import 'package:time_management_mobile/utils/session.dart';
 
 /// Прослойка для [Client].
@@ -108,7 +108,7 @@ class HttpService implements Client {
         await _tryRefreshAuthToken();
         response = await _requester();
       } on Exception {
-        Session.isSignedInSubject.add(false);
+        Session.getInstance().isSignedInSubject.add(false);
       }
     }
 
@@ -130,15 +130,16 @@ class HttpService implements Client {
     var authenticationDto = AuthenticationDto.fromJson(
       prefs.get(AuthPrefsConsts.passKey),
     );
-    AuthService _authService = getIt.get<AuthService>();
+    UserService _authService = getIt.get<UserService>();
     await _authService.authenticate(authenticationDto);
   }
 
   void _insertDefaultHeaders(Map<String, String> headers) {
     headers['content-type'] = 'application/json';
     headers['accept'] = 'application/json';
-    if (Session.tokenDto != null) {
-      headers['Authorization'] = 'Bearer ' + Session.tokenDto.accessToken;
+    if (Session.getInstance().tokenDto != null) {
+      headers['Authorization'] =
+          'Bearer ' + Session.getInstance().tokenDto.accessToken;
     }
   }
 

@@ -9,7 +9,7 @@ import 'package:time_management_mobile/dtos/token_dto.dart';
 import 'package:time_management_mobile/services/app/http_service.dart';
 
 @injectable
-class AuthService {
+class UserService {
   final _root = Routes.root + 'users/';
   Client _client = HttpService();
 
@@ -28,22 +28,6 @@ class AuthService {
   }
 
   void dispose() {
-    if (_client != null) {
-      _client.close();
-    }
+    _client?.close();
   }
-
-  // Future<TokenDto> authenticate(AuthenticationDto authenticationDto) async {
-  //   var result = await _client.post(
-  //     _root + 'authenticate',
-  //     body: authenticationDto.toJson(),
-  //   ).asStream().transform(StreamTransformer
-
-  //   if (HttpResults.allowedHttpStatuses.contains(result.statusCode)) {
-  //     return TokenDto.fromJson(result.body);
-  //   }
-
-  //   HttpService.badResponseSubject.add(result);
-  //   return Future.error(result);
-  // }
 }
