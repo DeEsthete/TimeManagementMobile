@@ -10,6 +10,7 @@ import 'package:time_management_mobile/utils/translator.dart';
 import 'package:time_management_mobile/widgets/screens/deeds_screen.dart';
 import 'package:time_management_mobile/widgets/screens/home_screen.dart';
 import 'package:time_management_mobile/widgets/screens/periods_screen.dart';
+import 'package:time_management_mobile/widgets/screens/schedules_screen.dart';
 
 /// Базовое боковое меню
 class BaseDrawer extends StatelessWidget {
@@ -59,7 +60,7 @@ class BaseDrawer extends StatelessWidget {
             context: context,
             icon: FontAwesomeIcons.alignJustify,
             title: "Schedule",
-            screen: Container(),
+            screen: SchedulesScreen(),
             selected: SelectedScreen.schedule,
           ),
           _buildListItem(

@@ -13,6 +13,10 @@ class HomeModel extends ChangeNotifier {
 
   bool _isRealTime = true;
   bool get isRealTime => _isRealTime;
+  set isRealTime(value) {
+    _isRealTime = value;
+    clear();
+  }
 
   DeedDto selectedDeed;
 
@@ -35,11 +39,6 @@ class HomeModel extends ChangeNotifier {
           deeds = value,
           notifyListeners(),
         });
-  }
-
-  set isRealTime(value) {
-    _isRealTime = value;
-    clear();
   }
 
   void selectDeed(int id) {

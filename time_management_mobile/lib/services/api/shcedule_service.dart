@@ -23,10 +23,23 @@ class ScheduleService {
 
   Future<ScheduleDto> getScheduleByDate(DateTime scheduleDate) async {
     var response = await _client.get(
-      _root + scheduleDate.toString(),
+      _root + scheduleDate.toIso8601String(),
     );
     if (HttpResults.allowedHttpStatuses.contains(response.statusCode)) {
-      return ScheduleDto.fromJson(response.body);
+      return response.body != "" ? ScheduleDto.fromJson(response.body) : null;
+    }
+    return Future.error(response);
+  }
+
+  Future<List<ScheduleDto>> getScheduleByDateRange(
+      DateTime from, DateTime to) async {
+    var response = await _client.get(
+      _root + from.toIso8601String() + "/" + to.toIso8601String(),
+    );
+    if (HttpResults.allowedHttpStatuses.contains(response.statusCode)) {
+      return List.from(json.decode(response.body))
+          .map((model) => ScheduleDto.fromMap(model))
+          .toList();
     }
     return Future.error(response);
   }
