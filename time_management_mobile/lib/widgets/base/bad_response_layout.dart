@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:time_management_mobile/dtos/bad_response_dto.dart';
 import 'package:time_management_mobile/services/app/http_service.dart';
 import 'package:time_management_mobile/utils/translator.dart';
 
@@ -15,8 +16,12 @@ class BadResponseLayout extends StatelessWidget {
       String message = "";
 
       if (value != null) {
-        var badResponse = BadResponseDto.fromJson(value.body);
-        message = badResponse.message.toString();
+        var badResponse = json.decode(value.body);
+        if (badResponse["message"] != null) {
+          message = badResponse["message"];
+        } else {
+          message = badResponse["title"];
+        }
       } else {
         message = "Unexpected error";
       }
