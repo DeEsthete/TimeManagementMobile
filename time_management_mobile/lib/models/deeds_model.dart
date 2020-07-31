@@ -14,6 +14,10 @@ class DeedsModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  DeedsModel() {
+    loadDeeds();
+  }
+
   void loadDeeds({String filter}) {
     _deedService
         .getUserDeeds(isArchiveInclusive: isArchive, filter: filter)
@@ -21,6 +25,11 @@ class DeedsModel extends ChangeNotifier {
               deeds = value.where((d) => d.isArchived == isArchive).toList(),
               notifyListeners(),
             });
+  }
+
+  void createDeed(String name) {
+    DeedDto deed = new DeedDto(name: name);
+    _deedService.createDeed(deed).then((value) => loadDeeds());
   }
 
   void archiveDeed(int id) {

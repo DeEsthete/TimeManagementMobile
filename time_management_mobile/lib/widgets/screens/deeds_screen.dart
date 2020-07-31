@@ -7,9 +7,11 @@ import 'package:time_management_mobile/dtos/deed_dto.dart';
 import 'package:time_management_mobile/models/deeds_model.dart';
 import 'package:time_management_mobile/utils/translator.dart';
 import 'package:time_management_mobile/widgets/base/base_layout.dart';
+import 'package:time_management_mobile/widgets/supporting/info_card.dart';
 
 class DeedsScreen extends StatelessWidget {
   final TextEditingController _filterController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +22,14 @@ class DeedsScreen extends StatelessWidget {
         create: (context) => DeedsModel(),
         child: Consumer<DeedsModel>(
           builder: (context, value, child) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: <Widget>[
-                  _buildAddButton(context),
-                  _buildFilterWidget(context),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: _buildDeedsList(context),
-                    ),
-                  ),
-                ],
-              ),
+            return Column(
+              children: <Widget>[
+                _buildAddButton(context),
+                _buildFilterWidget(context),
+                Expanded(
+                  child: _buildDeedsList(context),
+                ),
+              ],
             );
           },
         ),
@@ -42,15 +38,45 @@ class DeedsScreen extends StatelessWidget {
   }
 
   Widget _buildAddButton(BuildContext context) {
+    var model = context.watch<DeedsModel>();
+
     return Padding(
-      padding: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.only(top: 6.0, left: 8.0, right: 8.0),
       child: Container(
         width: double.infinity,
         child: RaisedButton(
           child: Text(
             Translator.of(context).translate("Add deed"),
           ),
-          onPressed: () => {}, // TODO
+          onPressed: () => {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text(
+                    Translator.of(context).translate("Add deed"),
+                  ),
+                  content: TextField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      hintText: Translator.of(context).translate("Name"),
+                    ),
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text(
+                        Translator.of(context).translate("Create"),
+                      ),
+                      onPressed: () => {
+                        model.createDeed(_nameController.text),
+                        Navigator.pop(context),
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
+          }, // TODO
         ),
       ),
     );
@@ -58,42 +84,48 @@ class DeedsScreen extends StatelessWidget {
 
   Widget _buildFilterWidget(BuildContext context) {
     var model = context.watch<DeedsModel>();
-    return Container(
-      child: Row(
-        children: <Widget>[
-          Container(
-            child: Row(
-              children: <Widget>[
-                Text(Translator.of(context).translate("Archived?")),
-                Checkbox(
-                  value: model.isArchive,
-                  onChanged: (value) => {
-                    model.isArchive = !model.isArchive,
+    return InfoCard(
+      paddingBottom: 0,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          child: Row(
+            children: <Widget>[
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Text(Translator.of(context).translate("Archived?")),
+                    Checkbox(
+                      value: model.isArchive,
+                      onChanged: (value) => {
+                        model.isArchive = !model.isArchive,
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: Translator.of(context).translate("Deed name"),
+                  ),
+                  controller: _filterController,
+                ),
+              ),
+              Container(
+                child: IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: AppColors.primaryColor,
+                  ),
+                  onPressed: () => {
+                    model.loadDeeds(filter: _filterController.text),
                   },
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: Translator.of(context).translate("Deed name"),
               ),
-              controller: _filterController,
-            ),
+            ],
           ),
-          Container(
-            child: IconButton(
-              icon: Icon(
-                Icons.search,
-                color: AppColors.primaryColor,
-              ),
-              onPressed: () => {
-                model.loadDeeds(filter: _filterController.text),
-              },
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -102,18 +134,7 @@ class DeedsScreen extends StatelessWidget {
     var model = context.watch<DeedsModel>();
     return model.deeds != null
         ? model.deeds.isNotEmpty
-            ? Container(
-                decoration: BoxDecoration(
-                  color: AppColors.backgroundColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
+            ? InfoCard(
                 child: ListView.builder(
                   itemCount: model.deeds.length,
                   itemBuilder: (context, index) =>
