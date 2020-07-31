@@ -8,6 +8,7 @@ import 'package:time_management_mobile/dtos/period_dto.dart';
 import 'package:time_management_mobile/models/periods_model.dart';
 import 'package:time_management_mobile/utils/translator.dart';
 import 'package:time_management_mobile/widgets/base/base_layout.dart';
+import 'package:time_management_mobile/widgets/supporting/info_card.dart';
 
 class PeriodsScreen extends StatelessWidget {
   @override
@@ -23,11 +24,7 @@ class PeriodsScreen extends StatelessWidget {
               children: <Widget>[
                 _buildFilter(context),
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 8.0, right: 8.0, top: 14.0, bottom: 14.0),
-                    child: _buildPeriodsList(context),
-                  ),
+                  child: _buildPeriodsList(context),
                 ),
               ],
             );
@@ -52,18 +49,7 @@ class PeriodsScreen extends StatelessWidget {
     var model = context.watch<PeriodsModel>();
     return model.periods != null
         ? model.periods.isNotEmpty
-            ? Container(
-                decoration: BoxDecoration(
-                  color: AppColors.backgroundColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
+            ? InfoCard(
                 child: ListView.builder(
                   itemCount: model.periods.length,
                   itemBuilder: (context, index) => PeriodItem(

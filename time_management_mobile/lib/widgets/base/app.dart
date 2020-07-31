@@ -5,8 +5,8 @@ import 'package:time_management_mobile/constant/color_consts.dart';
 import 'package:time_management_mobile/models/app_language_model.dart';
 import 'package:time_management_mobile/models/session_model.dart';
 import 'package:time_management_mobile/utils/translator.dart';
-import 'package:time_management_mobile/widgets/auth_screen.dart';
-import 'package:time_management_mobile/widgets/home_screen.dart';
+import 'package:time_management_mobile/widgets/screens/auth_screen.dart';
+import 'package:time_management_mobile/widgets/screens/home_screen.dart';
 
 class MyApp extends StatelessWidget {
   @override

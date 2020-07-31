@@ -5,7 +5,7 @@ import 'package:time_management_mobile/utils/session.dart';
 
 import 'common/di_config.dart';
 import 'models/app_language_model.dart';
-import 'widgets/app.dart';
+import 'widgets/base/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -7,9 +7,9 @@ import 'package:time_management_mobile/common/selected_screen.dart';
 import 'package:time_management_mobile/constant/color_consts.dart';
 import 'package:time_management_mobile/utils/session.dart';
 import 'package:time_management_mobile/utils/translator.dart';
-import 'package:time_management_mobile/widgets/deeds_screen.dart';
-import 'package:time_management_mobile/widgets/home_screen.dart';
-import 'package:time_management_mobile/widgets/periods_screen.dart';
+import 'package:time_management_mobile/widgets/screens/deeds_screen.dart';
+import 'package:time_management_mobile/widgets/screens/home_screen.dart';
+import 'package:time_management_mobile/widgets/screens/periods_screen.dart';
 
 /// Базовое боковое меню
 class BaseDrawer extends StatelessWidget {
@@ -134,7 +134,7 @@ class BaseDrawer extends StatelessWidget {
         ),
         onTap: () {
           if (this.selected != selected) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => screen,

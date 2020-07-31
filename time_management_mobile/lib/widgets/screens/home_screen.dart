@@ -7,6 +7,7 @@ import 'package:time_management_mobile/constant/color_consts.dart';
 import 'package:time_management_mobile/models/home_model.dart';
 import 'package:time_management_mobile/utils/translator.dart';
 import 'package:time_management_mobile/widgets/base/base_layout.dart';
+import 'package:time_management_mobile/widgets/supporting/info_card.dart';
 
 class HomeScreen extends StatelessWidget {
   final TextEditingController _descriptionController =
@@ -57,59 +58,45 @@ class HomeScreen extends StatelessWidget {
   Widget _buildForRealTime(BuildContext context, HomeModel model) {
     return Stack(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.backgroundColor.withOpacity(0.95),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3),
+        InfoCard(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 10.0),
+                child: DropdownButton(
+                  value: model.selectedDeed?.id,
+                  hint: Text(
+                    Translator.of(context)
+                        .translate("Change deed for current period"),
+                  ),
+                  items: model.deeds
+                      .map(
+                        (e) => DropdownMenuItem(
+                          child: Text(e.name),
+                          value: e.id,
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) => {model.selectDeed(value)},
                 ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(top: 10.0),
-                  child: DropdownButton(
-                    value: model.selectedDeed?.id,
-                    hint: Text(
-                      Translator.of(context)
-                          .translate("Change deed for current period"),
+              ),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: TextFormField(
+                    minLines: 3,
+                    maxLines: 3,
+                    controller: model.descriptionController,
+                    decoration: InputDecoration(
+                      hintText: Translator.of(context)
+                          .translate("Period description"),
                     ),
-                    items: model.deeds
-                        .map(
-                          (e) => DropdownMenuItem(
-                            child: Text(e.name),
-                            value: e.id,
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) => {model.selectDeed(value)},
+                    keyboardType: TextInputType.text,
                   ),
                 ),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: TextFormField(
-                      minLines: 3,
-                      maxLines: 3,
-                      controller: model.descriptionController,
-                      decoration: InputDecoration(
-                        hintText: Translator.of(context)
-                            .translate("Period description"),
-                      ),
-                      keyboardType: TextInputType.text,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         Positioned.fill(
@@ -162,69 +149,55 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildForHistory(BuildContext context, HomeModel model) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.backgroundColor.withOpacity(0.95),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 10.0),
-              child: DropdownButton(
-                value: model.selectedDeed?.id,
-                hint: Text(
-                  Translator.of(context)
-                      .translate("Change deed for current period"),
-                ),
-                items: model.deeds
-                    .map(
-                      (e) => DropdownMenuItem(
-                        child: Text(e.name),
-                        value: e.id,
-                      ),
-                    )
-                    .toList(),
-                onChanged: (value) => {model.selectDeed(value)},
+    return InfoCard(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(top: 10.0),
+            child: DropdownButton(
+              value: model.selectedDeed?.id,
+              hint: Text(
+                Translator.of(context)
+                    .translate("Change deed for current period"),
               ),
+              items: model.deeds
+                  .map(
+                    (e) => DropdownMenuItem(
+                      child: Text(e.name),
+                      value: e.id,
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) => {model.selectDeed(value)},
             ),
-            _buildDateTimePicker(context, model, true),
-            _buildDateTimePicker(context, model, false),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: TextFormField(
-                  minLines: 4,
-                  maxLines: 4,
-                  controller: model.descriptionController,
-                  decoration: InputDecoration(
-                    hintText:
-                        Translator.of(context).translate("Period description"),
-                  ),
+          ),
+          _buildDateTimePicker(context, model, true),
+          _buildDateTimePicker(context, model, false),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: TextFormField(
+                minLines: 4,
+                maxLines: 4,
+                controller: model.descriptionController,
+                decoration: InputDecoration(
+                  hintText:
+                      Translator.of(context).translate("Period description"),
                 ),
               ),
             ),
-            Container(
-              child: RaisedButton(
-                onPressed: () => {model.createPeriod()},
-                child: Text(
-                  Translator.of(context).translate("Create deed"),
-                  style: TextStyle(fontSize: 16),
-                ),
+          ),
+          Container(
+            child: RaisedButton(
+              onPressed: () => {model.createPeriod()},
+              child: Text(
+                Translator.of(context).translate("Create deed"),
+                style: TextStyle(fontSize: 16),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
