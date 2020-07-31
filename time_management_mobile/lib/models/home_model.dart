@@ -60,9 +60,6 @@ class HomeModel extends ChangeNotifier {
 
   void createPeriod() {
     PeriodDto periodDto = new PeriodDto(
-      id: 0,
-      dateCreate: DateTime.now(),
-      dateUpdate: DateTime.now(),
       deedId: selectedDeed.id,
       startDate: _periodStartDate,
       endDate: _periodEndDate,
