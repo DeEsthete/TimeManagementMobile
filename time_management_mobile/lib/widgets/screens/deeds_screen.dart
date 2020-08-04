@@ -46,7 +46,7 @@ class DeedsScreen extends StatelessWidget {
         width: double.infinity,
         child: RaisedButton(
           child: Text(
-            Translator.of(context).translate("Add deed"),
+            Translator.of(context).translate("Create deed"),
           ),
           onPressed: () => {
             showDialog(
@@ -54,7 +54,7 @@ class DeedsScreen extends StatelessWidget {
               builder: (context) {
                 return AlertDialog(
                   title: Text(
-                    Translator.of(context).translate("Add deed"),
+                    Translator.of(context).translate("Create deed"),
                   ),
                   content: TextField(
                     controller: _nameController,

@@ -195,7 +195,7 @@ class HomeScreen extends StatelessWidget {
             child: RaisedButton(
               onPressed: () => {model.createPeriod()},
               child: Text(
-                Translator.of(context).translate("Create deed"),
+                Translator.of(context).translate("Create period"),
                 style: TextStyle(fontSize: 16),
               ),
             ),
