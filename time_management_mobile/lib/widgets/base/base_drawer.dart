@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:time_management_mobile/common/selected_screen.dart';
+import 'package:time_management_mobile/common/enums/selected_screen.dart';
 import 'package:time_management_mobile/constant/color_consts.dart';
 import 'package:time_management_mobile/utils/session.dart';
 import 'package:time_management_mobile/utils/translator.dart';
@@ -11,6 +11,7 @@ import 'package:time_management_mobile/widgets/screens/deeds_screen.dart';
 import 'package:time_management_mobile/widgets/screens/home_screen.dart';
 import 'package:time_management_mobile/widgets/screens/periods_screen.dart';
 import 'package:time_management_mobile/widgets/screens/schedules_screen.dart';
+import 'package:time_management_mobile/widgets/screens/statistic_screen.dart';
 
 /// Базовое боковое меню
 class BaseDrawer extends StatelessWidget {

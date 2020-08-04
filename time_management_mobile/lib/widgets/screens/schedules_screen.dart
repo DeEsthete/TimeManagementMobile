@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_management_mobile/common/selected_screen.dart';
+import 'package:time_management_mobile/common/enums/selected_screen.dart';
 import 'package:time_management_mobile/constant/color_consts.dart';
 import 'package:time_management_mobile/dtos/period_dto.dart';
 import 'package:time_management_mobile/dtos/schedule_dto.dart';
@@ -22,6 +22,7 @@ class SchedulesScreen extends StatelessWidget {
           builder: (context, value, child) {
             return Column(
               children: <Widget>[
+                // TODO: Добавление расписания
                 _buildTodaySchedule(context),
                 Expanded(
                   child: _buildSchedulesList(context),
@@ -132,7 +133,6 @@ class ScheduleItem extends StatefulWidget {
 
 class _ScheduleItemState extends State<ScheduleItem> {
   final borderColor = AppColors.mainFontColor.withOpacity(0.2);
-  final accentColor = AppColors.mainFontColor.withOpacity(0.6);
 
   bool isExpanded;
 
@@ -180,7 +180,7 @@ class _ScheduleItemState extends State<ScheduleItem> {
                             child: Text(
                               index.toString(),
                               style: TextStyle(
-                                color: accentColor,
+                                color: AppColors.accentFontColor,
                                 fontSize: 20,
                               ),
                             ),
@@ -256,7 +256,7 @@ class _ScheduleItemState extends State<ScheduleItem> {
                 child: Text(
                   widget.index.toString(),
                   style: TextStyle(
-                    color: accentColor,
+                    color: AppColors.accentFontColor,
                     fontSize: 20,
                   ),
                 ),
@@ -284,7 +284,7 @@ class _ScheduleItemState extends State<ScheduleItem> {
                             " - " +
                             period.endDate.toString().split(".")[0],
                         style: TextStyle(
-                          color: accentColor,
+                          color: AppColors.accentFontColor,
                         ),
                       ),
                     ),

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:time_management_mobile/common/selected_screen.dart';
+import 'package:time_management_mobile/common/enums/selected_screen.dart';
 import 'package:time_management_mobile/constant/color_consts.dart';
 import 'package:time_management_mobile/dtos/period_dto.dart';
 import 'package:time_management_mobile/models/periods_model.dart';
@@ -165,7 +165,6 @@ class PeriodItem extends StatefulWidget {
 
 class _PeriodItemState extends State<PeriodItem> {
   final borderColor = AppColors.mainFontColor.withOpacity(0.2);
-  final accentColor = AppColors.mainFontColor.withOpacity(0.6);
 
   bool isExpanded = false;
 
@@ -196,7 +195,7 @@ class _PeriodItemState extends State<PeriodItem> {
                       child: Text(
                         widget.index.toString(),
                         style: TextStyle(
-                          color: accentColor,
+                          color: AppColors.accentFontColor,
                           fontSize: 20,
                         ),
                       ),
@@ -226,7 +225,7 @@ class _PeriodItemState extends State<PeriodItem> {
                                       .toString()
                                       .split(".")[0],
                               style: TextStyle(
-                                color: accentColor,
+                                color: AppColors.accentFontColor,
                               ),
                             ),
                           ),

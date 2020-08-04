@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_management_mobile/common/selected_screen.dart';
+import 'package:time_management_mobile/common/enums/selected_screen.dart';
 import 'package:time_management_mobile/constant/color_consts.dart';
 import 'package:time_management_mobile/dtos/deed_dto.dart';
 import 'package:time_management_mobile/models/deeds_model.dart';
@@ -157,7 +157,6 @@ class DeedsScreen extends StatelessWidget {
 
   Widget _buildDeedItem(BuildContext context, int index, DeedDto deed) {
     final borderColor = AppColors.mainFontColor.withOpacity(0.2);
-    final accentColor = AppColors.mainFontColor.withOpacity(0.6);
     var model = context.watch<DeedsModel>();
 
     return Container(
@@ -177,7 +176,7 @@ class DeedsScreen extends StatelessWidget {
                 child: Text(
                   index.toString(),
                   style: TextStyle(
-                    color: accentColor,
+                    color: AppColors.accentFontColor,
                     fontSize: 20,
                   ),
                 ),
