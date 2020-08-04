@@ -29,12 +29,20 @@ class DeedService {
     return Future.error(response);
   }
 
+  Future<DeedDto> getDeedById(int id) async {
+    var response = await _client.get(_root + id.toString());
+    if (HttpResults.allowedHttpStatuses.contains(response.statusCode)) {
+      return DeedDto.fromJson(response.body);
+    }
+    return Future.error(response);
+  }
+
   Future<List<DeedDto>> getUserDeeds(
       {bool isArchiveInclusive = false, String filter}) async {
     if (filter == null) filter = "";
 
     var response = await _client.get(
-      _root + isArchiveInclusive.toString() + "?filter=" + filter,
+      _root + "user/" + isArchiveInclusive.toString() + "?filter=" + filter,
     );
     if (HttpResults.allowedHttpStatuses.contains(response.statusCode)) {
       return List.from(json.decode(response.body))
