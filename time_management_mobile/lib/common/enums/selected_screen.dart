@@ -5,4 +5,5 @@ enum SelectedScreen {
   periods,
   deeds,
   purposes,
+  preferences,
 }

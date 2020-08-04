@@ -10,6 +10,7 @@ import 'package:time_management_mobile/utils/translator.dart';
 import 'package:time_management_mobile/widgets/screens/deeds_screen.dart';
 import 'package:time_management_mobile/widgets/screens/home_screen.dart';
 import 'package:time_management_mobile/widgets/screens/periods_screen.dart';
+import 'package:time_management_mobile/widgets/screens/preferences_screen.dart';
 import 'package:time_management_mobile/widgets/screens/schedules_screen.dart';
 import 'package:time_management_mobile/widgets/screens/statistic_screen.dart';
 
@@ -83,6 +84,13 @@ class BaseDrawer extends StatelessWidget {
             icon: FontAwesomeIcons.tasks,
             title: "Purposes",
             screen: Container(),
+            selected: SelectedScreen.purposes,
+          ),
+          _buildListItem(
+            context: context,
+            icon: FontAwesomeIcons.hammer,
+            title: "Preferences",
+            screen: PreferencesScreen(),
             selected: SelectedScreen.purposes,
           ),
         ],
