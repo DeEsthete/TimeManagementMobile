@@ -58,45 +58,48 @@ class HomeScreen extends StatelessWidget {
   Widget _buildForRealTime(BuildContext context, HomeModel model) {
     return Stack(
       children: <Widget>[
-        InfoCard(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 10.0),
-                child: DropdownButton(
-                  value: model.selectedDeed?.id,
-                  hint: Text(
-                    Translator.of(context)
-                        .translate("Change deed for current period"),
-                  ),
-                  items: model.deeds
-                      .map(
-                        (e) => DropdownMenuItem(
-                          child: Text(e.name),
-                          value: e.id,
-                        ),
-                      )
-                      .toList(),
-                  onChanged: (value) => {model.selectDeed(value)},
-                ),
-              ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: TextFormField(
-                    minLines: 3,
-                    maxLines: 3,
-                    controller: model.descriptionController,
-                    decoration: InputDecoration(
-                      hintText: Translator.of(context)
-                          .translate("Period description"),
+        Container(
+          height: 230,
+          child: InfoCard(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 10.0),
+                  child: DropdownButton(
+                    value: model.selectedDeed?.id,
+                    hint: Text(
+                      Translator.of(context)
+                          .translate("Change deed for current period"),
                     ),
-                    keyboardType: TextInputType.text,
+                    items: model.deeds
+                        .map(
+                          (e) => DropdownMenuItem(
+                            child: Text(e.name),
+                            value: e.id,
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) => {model.selectDeed(value)},
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: TextFormField(
+                      minLines: 3,
+                      maxLines: 3,
+                      controller: model.descriptionController,
+                      decoration: InputDecoration(
+                        hintText: Translator.of(context)
+                            .translate("Period description"),
+                      ),
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         Positioned.fill(
