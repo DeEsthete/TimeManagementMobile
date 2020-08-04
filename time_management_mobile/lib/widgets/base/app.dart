@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Time Management',
       theme: ThemeData(
         primarySwatch: AppColors.primaryColor,
-        accentColor: AppColors.accentFontColor,
+        accentColor: AppColors.accentColor,
         buttonColor: AppColors.primaryColor,
         buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
         visualDensity: VisualDensity.adaptivePlatformDensity,
