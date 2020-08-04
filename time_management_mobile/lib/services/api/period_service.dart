@@ -40,8 +40,12 @@ class PeriodService {
     return Future.error(response);
   }
 
-  Future<int> getPeriodsCount() async {
-    var response = await _client.get(_root + "count");
+  Future<int> getPeriodsCount(DateTime from, DateTime to) async {
+    var response = await _client.get(_root +
+        "count/" +
+        (from != null ? from.toIso8601String() : "") +
+        "/" +
+        (to != null ? to.toIso8601String() : ""));
     if (HttpResults.allowedHttpStatuses.contains(response.statusCode)) {
       return json.decode(response.body);
     }
