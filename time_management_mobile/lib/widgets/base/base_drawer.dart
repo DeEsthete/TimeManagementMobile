@@ -54,7 +54,7 @@ class BaseDrawer extends StatelessWidget {
             context: context,
             icon: FontAwesomeIcons.chartLine,
             title: "Statistic",
-            screen: Container(),
+            screen: StatisticScreen(),
             selected: SelectedScreen.statistic,
           ),
           _buildListItem(
