@@ -44,10 +44,10 @@ class InfoCard extends StatelessWidget {
           ],
           borderRadius: BorderRadius.circular(isRounded ? defaultRadius : 0),
         ),
-        child: Column(
-          children: <Widget>[
-            title != null
-                ? Container(
+        child: title != null
+            ? Column(
+                children: <Widget>[
+                  Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: TinyColor(AppColors.primaryColor).lighten(7).color,
@@ -65,11 +65,11 @@ class InfoCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )
-                : Container(),
-            child,
-          ],
-        ),
+                  ),
+                  child,
+                ],
+              )
+            : child,
       ),
     );
   }
