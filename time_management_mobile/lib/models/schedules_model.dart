@@ -19,7 +19,9 @@ class SchedulesModel extends ChangeNotifier {
   bool get isHistory => _isHistory;
   set isHistory(value) {
     _isHistory = value;
+    schedules = null;
     notifyListeners();
+    loadSchedules();
   }
 
   SchedulesModel() {
@@ -41,8 +43,8 @@ class SchedulesModel extends ChangeNotifier {
   }
 
   void loadSchedules() {
-    var from = _isHistory ? DateConsts.minDate : DateTime.now();
-    var to = _isHistory ? DateTime.now() : DateConsts.maxDate;
+    var from = !_isHistory ? DateConsts.minDate : DateTime.now();
+    var to = !_isHistory ? DateTime.now() : DateConsts.maxDate;
     _scheduleService.getScheduleByDateRange(from, to).then((value) => {
           schedules = value,
           notifyListeners(),

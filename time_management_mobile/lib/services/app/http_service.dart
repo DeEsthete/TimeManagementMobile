@@ -105,7 +105,7 @@ class HttpService implements Client {
 
     if (response.statusCode == HttpStatus.unauthorized) {
       try {
-        await _tryRefreshAuthToken();
+        await _refreshAuthToken();
         response = await _requester();
       } on Exception {
         Session.getInstance().isSignedInSubject.add(false);
@@ -121,7 +121,7 @@ class HttpService implements Client {
     return response;
   }
 
-  Future _tryRefreshAuthToken() async {
+  Future _refreshAuthToken() async {
     var prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey(AuthPrefsConsts.passKey)) {
       throw Exception('An error occured while trying to refresh auth token');

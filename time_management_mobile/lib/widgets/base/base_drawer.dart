@@ -79,13 +79,13 @@ class BaseDrawer extends StatelessWidget {
             screen: DeedsScreen(),
             selected: SelectedScreen.deeds,
           ),
-          _buildListItem(
-            context: context,
-            icon: FontAwesomeIcons.tasks,
-            title: "Purposes",
-            screen: Container(),
-            selected: SelectedScreen.purposes,
-          ),
+          // _buildListItem(
+          //   context: context,
+          //   icon: FontAwesomeIcons.tasks,
+          //   title: "Purposes",
+          //   screen: Container(),
+          //   selected: SelectedScreen.purposes,
+          // ),
           _buildListItem(
             context: context,
             icon: FontAwesomeIcons.hammer,

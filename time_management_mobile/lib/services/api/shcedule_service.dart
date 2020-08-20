@@ -21,6 +21,17 @@ class ScheduleService {
     return Future.error(response);
   }
 
+  Future<int> addSchedulePeriod(SchedulePeriodDto schedulePeriod) async {
+    var response = await _client.post(
+      _root + "period",
+      body: schedulePeriod.toJson(),
+    );
+    if (HttpResults.allowedHttpStatuses.contains(response.statusCode)) {
+      return json.decode(response.body);
+    }
+    return Future.error(response);
+  }
+
   Future<ScheduleDto> getScheduleByDate(DateTime scheduleDate) async {
     var response = await _client.get(
       _root + scheduleDate.toIso8601String(),

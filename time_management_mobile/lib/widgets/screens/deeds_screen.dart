@@ -76,7 +76,7 @@ class DeedsScreen extends StatelessWidget {
                 );
               },
             ),
-          }, // TODO
+          },
         ),
       ),
     );

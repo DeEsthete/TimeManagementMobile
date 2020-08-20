@@ -4,11 +4,11 @@ class SchedulePeriodDto {
   final int id;
   final DateTime dateCreate;
   final DateTime dateUpdate;
-  final int scheduleId;
   final int deedId;
-  final DateTime startDate;
-  final DateTime endDate;
+  DateTime startDate;
+  DateTime endDate;
   final String description;
+  int scheduleId;
 
   SchedulePeriodDto({
     this.id,

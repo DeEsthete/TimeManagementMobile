@@ -70,7 +70,7 @@ class AuthScreen extends StatelessWidget {
                   Container(
                     width: 200,
                     child: FlatButton(
-                      // TODO: Добавить navigation на регистрацию
+                      // TODO: Добавить регистрацию
                       onPressed: () => {},
                       child: Center(
                         child: Center(

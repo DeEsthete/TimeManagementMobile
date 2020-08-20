@@ -5,9 +5,11 @@ import 'package:time_management_mobile/common/enums/selected_screen.dart';
 import 'package:time_management_mobile/constant/color_consts.dart';
 import 'package:time_management_mobile/dtos/period_dto.dart';
 import 'package:time_management_mobile/dtos/schedule_dto.dart';
+import 'package:time_management_mobile/dtos/schedule_period_dto.dart';
 import 'package:time_management_mobile/models/schedules_model.dart';
 import 'package:time_management_mobile/utils/translator.dart';
 import 'package:time_management_mobile/widgets/base/base_layout.dart';
+import 'package:time_management_mobile/widgets/screens/schedule_create_screen.dart';
 import 'package:time_management_mobile/widgets/supporting/info_card.dart';
 
 class SchedulesScreen extends StatelessWidget {
@@ -22,7 +24,24 @@ class SchedulesScreen extends StatelessWidget {
           builder: (context, value, child) {
             return Column(
               children: <Widget>[
-                // TODO: Добавление расписания
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: RaisedButton(
+                    child: Center(
+                      child: Text(
+                        Translator.of(context).translate("Create schedule"),
+                      ),
+                    ),
+                    onPressed: () => {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ScheduleCreateScreen(),
+                        ),
+                      )
+                    },
+                  ),
+                ),
                 _buildTodaySchedule(context),
                 Expanded(
                   child: _buildSchedulesList(context),
@@ -57,7 +76,7 @@ class SchedulesScreen extends StatelessWidget {
                     ? ListView.builder(
                         itemCount: model.schedules.length,
                         itemBuilder: (context, index) => ScheduleItem(
-                          index: index,
+                          index: index + 1,
                           schedule: model.schedules[index],
                         ),
                       )
@@ -134,7 +153,7 @@ class ScheduleItem extends StatefulWidget {
 class _ScheduleItemState extends State<ScheduleItem> {
   final borderColor = AppColors.mainFontColor.withOpacity(0.2);
 
-  bool isExpanded;
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +214,7 @@ class _ScheduleItemState extends State<ScheduleItem> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         scheduleDate != now
-                            ? scheduleDate.toString().split(".")[0]
+                            ? scheduleDate.toString().split(" ")[0]
                             : Translator.of(context).translate("Today"),
                         style: TextStyle(
                           fontSize: 18,
@@ -228,11 +247,12 @@ class _ScheduleItemState extends State<ScheduleItem> {
                               child: CircularProgressIndicator(),
                             );
                           }
-                          return ListView.builder(
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (context, index) => _buildPeriodItem(
-                                context, index, snapshot.data[index]),
-                          );
+                          List<Widget> widgets = [];
+                          for (int i = 0; i < snapshot.data.length; i++) {
+                            widgets.add(_buildPeriodItem(
+                                context, i + 1, snapshot.data[i]));
+                          }
+                          return Column(children: widgets);
                         },
                       ),
                     )
@@ -244,7 +264,8 @@ class _ScheduleItemState extends State<ScheduleItem> {
     );
   }
 
-  Widget _buildPeriodItem(BuildContext context, int index, PeriodDto period) {
+  Widget _buildPeriodItem(
+      BuildContext context, int index, SchedulePeriodDto period) {
     var model = context.watch<SchedulesModel>();
     return Container(
       child: Row(
@@ -254,7 +275,7 @@ class _ScheduleItemState extends State<ScheduleItem> {
             child: Container(
               child: Center(
                 child: Text(
-                  widget.index.toString(),
+                  index.toString(),
                   style: TextStyle(
                     color: AppColors.accentFontColor,
                     fontSize: 20,
